@@ -40,6 +40,10 @@ jobs:
         ./install-deps.sh
     - name: Setup native project
       run: cmake nativesrc --preset linux-debug
+    - name: Setup PFFFT 
+      run: cmake nativesrc/pffft/ --preset linux-release
+    - name: Build PFFFT
+      run: cmake --build nativesrc/pffft/out/build/linux-release
     - name: Build native code
       run: cmake --build nativesrc/out/build/linux-debug
     - name: Build
