@@ -15,3 +15,6 @@ obj/
 licenseinfo.txt
 /dist
 README.nuget.md
+
+# Build Tools 
+libs/ffmpeg
