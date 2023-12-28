@@ -13,3 +13,4 @@ project ("aurio" C)
 
 # Include sub-projects.
 add_subdirectory ("aurioffmpegproxy")
+add_subdirectory ("pffft")
