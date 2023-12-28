@@ -1,8 +1,19 @@
-﻿# Force library to scan local directory for FFmpeg libs. Without it, `LD_LIBRARY_PATH=.` is needed.
-# This must come before add_library/add_executable
-set(CMAKE_BUILD_RPATH "$ORIGIN")
+﻿cmake_minimum_required(VERSION 3.28)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+project("pffft" C)
+
+set(CMAKE_SCAN_FOR_MODULES)
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC")
+  # using Visual Studio C++
+  message(STATUS "INFO: detected MSVC: will not link math lib m")
+  set(MATHLIB "")
+else()
+  message(STATUS "INFO: detected NO MSVC: ${CMAKE_C_COMPILER_ID}: will link math lib m")
+  set(MATHLIB "m")
+endif()
 
 add_library (pffft SHARED "fftpack.c" "fftpack.h" "pffft.c" "pffft.h")
+target_link_libraries( pffft ${MATHLIB} )
 add_executable (pffft_exe "test_pffft.c")
 set_property(TARGET pffft_exe PROPERTY OUTPUT_NAME pffft_test)
 target_link_libraries(pffft_exe pffft)
@@ -10,6 +21,8 @@ target_compile_definitions(pffft PRIVATE _USE_MATH_DEFINES)
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ${TARGET_NAME} PROPERTY CXX_STANDARD 20)
 endif()
+
+
 
 if (WIN32)
 	set(LIB_PREFIX "")
