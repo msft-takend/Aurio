@@ -33,6 +33,10 @@
       "name": "x64-release",
       "displayName": "x64 Release",
       "inherits": "x64-debug",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }

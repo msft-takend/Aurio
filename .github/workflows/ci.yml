@@ -71,7 +71,7 @@ jobs:
     - name: Setup PFFFT 
       run: cmake .\nativesrc\pffft\ --preset x64-release
     - name: Build PFFFT
-      run: cmake --build nativesrc\pffft\out\build\x64-release
+      run: cmake --build nativesrc\pffft\out\build\x64-release --config Release
     - name: Restore dependencies
       run: dotnet restore src
     - name: Build

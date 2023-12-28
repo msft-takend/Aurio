@@ -1,7 +1,6 @@
 ﻿cmake_minimum_required(VERSION 3.2)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 project("pffft" C)
-
 set(CMAKE_SCAN_FOR_MODULES)
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC")
   # using Visual Studio C++
@@ -20,13 +19,10 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 
-
 if (WIN32)
-	set(LIB_PREFIX "")
-	set(LIB_EXT .dll)
+	set_target_properties(pffft PROPERTIES PREFIX "" SUFFIX ".dll")
 else()
-	set(LIB_PREFIX "lib")
-	set(LIB_EXT .so)
+	set_target_properties(pffft PROPERTIES PREFIX "" SUFFIX ".so")
 endif()
 
 
