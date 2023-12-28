@@ -1,4 +1,4 @@
-$version = "ffmpeg-n6.0-latest-win64-lgpl-shared-6.0"
+$version = "ffmpeg-n6.1-latest-win64-lgpl-shared-6.1"
 $localname = "win64"
 $archive = "$version.zip"
 $dest = ".\libs\ffmpeg"
