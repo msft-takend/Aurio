@@ -23,7 +23,8 @@ namespace Aurio.PFFFT
 {
     internal unsafe class Interop64
     {
-        private const string PFFFTLIB = "pffft.x64.dll";
+        private const string PFFFTLIB = "pffft.x64-release.dll";
+
         private const CallingConvention CC = CallingConvention.Cdecl;
 
         [DllImport(PFFFTLIB, CallingConvention = CC)]

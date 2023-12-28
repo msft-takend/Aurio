@@ -9,7 +9,8 @@
       "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "cl.exe",
-        "CMAKE_CXX_COMPILER": "cl.exe"
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "PRESET_NAME": "${presetName}"
       },
       "condition": {
         "type": "equals",
@@ -49,6 +50,10 @@
         "value": "x86",
         "strategy": "external"
       },
+      "toolset": {
+        "value": "host=x86",
+        "strategy": "external"
+      },
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
@@ -57,6 +62,14 @@
       "name": "x86-release",
       "displayName": "x86 Release",
       "inherits": "x86-debug",
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      },
+      "toolset": {
+        "value": "host=x86",
+        "strategy": "external"
+      },
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
