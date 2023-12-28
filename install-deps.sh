@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=ffmpeg-n6.1-latest-win64-lgpl-shared-6.1
+VERSION=ffmpeg-n6.1-latest-linux64-lgpl-shared-6.1
 LOCALNAME=linux64
 ARCHIVE=$VERSION.tar.xz
 DEST=./libs/ffmpeg
