@@ -13,13 +13,42 @@ else()
   set(MATHLIB "m")
 endif()
 
+# C90 requires the gcc extensions for function attributes like always_inline
+# C99 provides the function attributes: no gcc extensions required
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_EXTENSIONS OFF)
+
+set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+include(GenerateExportHeader)
 add_library (pffft SHARED "fftpack.c" "fftpack.h" "pffft.c" "pffft.h")
-target_link_libraries( pffft ${MATHLIB} )
 target_compile_definitions(pffft PRIVATE _USE_MATH_DEFINES)
+if (USE_SCALAR_VECT)
+  target_compile_definitions(pffft PRIVATE PFFFT_SCALVEC_ENABLED=1)
+endif()
+if (USE_DEBUG_ASAN)
+  target_compile_options(pffft PRIVATE "-fsanitize=address")
+endif()
+if (NOT USE_SIMD)
+  target_compile_definitions(pffft PRIVATE PFFFT_SIMD_DISABLE=1)
+endif()
+if (USE_SIMD AND USE_SIMD_NEON)
+  target_compile_definitions(pffft PRIVATE PFFFT_ENABLE_NEON=1)
+  target_compile_options(pffft PRIVATE "-mfpu=neon")
+endif()
+target_link_libraries( pffft ${MATHLIB} )
+
+
+
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ${TARGET_NAME} PROPERTY CXX_STANDARD 20)
 endif()
-
+set_property(TARGET pffft APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+generate_export_header(pffft)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 message("Target Name :: ${TARGET_NAME}")
 # Set the version property.
 set_target_properties(pffft PROPERTIES VERSION ${PROJECT_VERSION})
