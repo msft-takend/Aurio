@@ -27,18 +27,23 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.dotnet_version }}
-    - name: Install local deps
+    - name: Install local deps Windows
+      if: matrix.os == 'windows-latest'
+      shell: pwsh
+      run: .\install-deps.ps1
+    - name: Install local deps Linux
+      if: matrix.os == 'ubuntu-latest'
       run: |
         chmod +x ./install-deps.sh
         ./install-deps.sh
     - name: Setup native project
-      run: cmake nativesrc --preset $nativename-debug
+      run: cmake nativesrc --preset ${{ env.nativename }}-debug
     - name: Setup PFFFT 
-      run: cmake nativesrc/pffft/ --preset $nativename-release
+      run: cmake nativesrc/pffft/ --preset ${{ env.nativename }}-release"
     - name: Build PFFFT
-      run: cmake --build nativesrc/pffft/out/build/$nativename-release
+      run: cmake --build "nativesrc/pffft/out/build/${{ env.nativename }}-release"
     - name: Build native code
-      run: cmake --build nativesrc/out/build/$nativename-debug
+      run: cmake --build nativesrc/out/build/${{ env.nativename }}-debug
     - name: Archive Native artifacts
       uses: actions/upload-artifact@v3
       with:
