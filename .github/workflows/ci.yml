@@ -72,16 +72,16 @@ jobs:
       run: cmake .\nativesrc\pffft\ --preset x64-release
     - name: Build PFFFT
       run: cmake --build nativesrc\pffft\out\build\x64-release --config Release
-    - name: Restore dependencies
-      run: dotnet restore src
-    - name: Build
-      run: dotnet build src --no-restore -c Debug
-    - name: Test
-      run: dotnet test src --no-build --verbosity normal -c Debug
-    - name: Archive artifacts
+    - name: Archive Native artifacts
       uses: actions/upload-artifact@v3
       with:
         name: native-${{ matrix.os }}-${{ matrix.version }}
         path: |
           nativesrc\pffft\out\build\x64-release
           nativesrc\out\build\x64-debug
+    - name: Restore dependencies
+      run: dotnet restore src
+    - name: Build
+      run: dotnet build src --no-restore -c Debug
+    - name: Test
+      run: dotnet test src --no-build --verbosity normal -c Debug
