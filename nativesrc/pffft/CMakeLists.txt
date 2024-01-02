@@ -16,11 +16,11 @@ endif()
 # C90 requires the gcc extensions for function attributes like always_inline
 # C99 provides the function attributes: no gcc extensions required
 set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_C_EXTENSIONS ON)
 
 set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_EXTENSIONS ON)
 include(GenerateExportHeader)
 add_library (pffft SHARED "fftpack.c" "fftpack.h" "pffft.c" "pffft.h")
 target_compile_definitions(pffft PRIVATE _USE_MATH_DEFINES)
