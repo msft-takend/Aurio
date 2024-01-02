@@ -46,6 +46,13 @@ jobs:
       run: cmake --build nativesrc/pffft/out/build/linux-release
     - name: Build native code
       run: cmake --build nativesrc/out/build/linux-debug
+    - name: Archive Native artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: native-$env:RUNNER_OS-$GITHUB_JOB
+        path: |
+          nativesrc/pffft/out/build/linux-release
+          nativesrc/out/build/linux-debug
     - name: Build
       run: dotnet build src -c LinuxDebug
     - name: Test
@@ -75,7 +82,7 @@ jobs:
     - name: Archive Native artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: native-${{ matrix.os }}-${{ matrix.version }}
+        name: native-$env:RUNNER_OS-$GITHUB_JOB
         path: |
           nativesrc\pffft\out\build\x64-release
           nativesrc\out\build\x64-debug
