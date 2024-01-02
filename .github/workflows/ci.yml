@@ -49,7 +49,7 @@ jobs:
     - name: Archive Native artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: native-${{ env.RUNNER_OS }}-${{ env.GITHUB_JOB }}
+        name: native-${{ runner.os }}-${{ github.GITHUB_JOB }}
         path: |
           nativesrc/pffft/out/build/linux-release
           nativesrc/out/build/linux-debug
@@ -82,7 +82,7 @@ jobs:
     - name: Archive Native artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: native-${{ env.RUNNER_OS }}-${{ env.GITHUB_JOB }}
+        name: native-${{ runner.os }}-${{ github.GITHUB_JOB }}
         path: |
           nativesrc\pffft\out\build\x64-release
           nativesrc\out\build\x64-debug
